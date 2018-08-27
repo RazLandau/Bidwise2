@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "importHelpers": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "lib": ["dom", "es2016"]
+  },
+  "include": [
+    "./test/**/*.ts"
+  ],
+  "files": [
+    "./node_modules/jest-yoshi-preset/types.d.ts",
+    "./src/external-types.d.ts",
+    "./src/client.tsx"
+  ]
+}
