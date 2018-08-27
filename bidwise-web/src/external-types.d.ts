@@ -6,3 +6,9 @@ interface Window {
   __LOCALE__: string;
   __BASEURL__: string;
 }
+
+declare module NodeJS {
+  interface Global {
+    browser: any;
+  }
+}
