@@ -10,7 +10,6 @@
     <script src="https://${clientTopology.staticsDomain}/unpkg/react-dom@15.6.1/dist/react-dom#if(!${debug}).min#{end}.js"></script>
   </head>
   <body>
-    <div id="visit-count">Visit count: ${visitCount}</div>
     <div id="root"></div>
     <script>
       window.__BASEURL__ = '${basename}';

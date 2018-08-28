@@ -1,16 +1,13 @@
 import * as React from 'react';
-import * as styles from './App.scss';
+import SideMenu from '../SideMenu/SideMenu';
 
 export interface AppProps {}
 
-class App extends React.Component {
+class App extends React.Component<AppProps> {
   render() {
     return (
-      <div className={styles.root}>
-        <div className={styles.header}>
-          <h2 data-hook="title">Hello World!</h2>
-        </div>
-        <p className={styles.intro}>intro</p>
+      <div>
+        <SideMenu />
       </div>
     );
   }

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { wixAxiosConfig } from 'wix-axios-config';
 import { baseURL } from './test-common';
-import 'jsdom-global/register';
+import * as jsdomGlobal from 'jsdom-global';
 
-wixAxiosConfig(axios, { baseURL });
+jsdomGlobal(undefined, {
+  url: baseURL,
+});
