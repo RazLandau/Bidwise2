@@ -1,6 +1,12 @@
 import * as express from 'express';
 import * as session from 'express-session';
 import { renderVM } from './vm';
+import { ENDPOINTS } from '../../src/services/faculties-server-api';
+import {
+  aFaculty,
+  asFacultiesResponse,
+  FacultyBuilder,
+} from '../builders/faculties.builder';
 
 export function start() {
   const app = express();
@@ -13,13 +19,14 @@ export function start() {
     }),
   );
 
+  app.get(ENDPOINTS.getFaculties, (req, res) => {
+    const response = asFacultiesResponse([
+      new FacultyBuilder(aFaculty()).build(),
+    ]);
+    res.send(response);
+  });
+
   app.use('/', (req, res) => {
-    if (!req.session.visitCount) {
-      req.session.visitCount = 0;
-    }
-
-    req.session.visitCount++;
-
     res.send(
       renderVM('./src/index.vm', {
         visitCount: req.session.visitCount,

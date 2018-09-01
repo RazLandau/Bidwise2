@@ -1,5 +1,6 @@
 import * as nock from 'nock';
 import { baseURL } from '../test-common';
+import { ENDPOINTS } from '../../src/services/faculties-server-api';
 
 export interface ApiInterceptorResult {
   method: Method;
@@ -43,7 +44,7 @@ export const ApiInterceptor = {
   getFaculties() {
     return responseBuilderFactory({
       method: Method.GET,
-      endpoint: '/faculties',
+      endpoint: ENDPOINTS.getFaculties,
     });
   },
   apply(apiMocks: ApiInterceptorResult[]) {
