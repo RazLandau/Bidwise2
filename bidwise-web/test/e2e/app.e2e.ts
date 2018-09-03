@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import './e2e-common';
 import { AppDriver } from './drivers/app.driver';
 
-describe('Notes', () => {
+describe('<App/>', () => {
   let driver: AppDriver;
 
   beforeEach(() => {
