@@ -37,8 +37,8 @@ describe('<SideMenu/>', () => {
           ),
         )
         .when.created();
-        expect(driver.get.subtitle()).to.equal('חכמים יותר מהבידינג');
-      });
+      expect(driver.get.subtitle()).to.equal('חכמים יותר מהבידינג');
+    });
   });
 
   describe('dynamic navigation', () => {
@@ -63,10 +63,10 @@ describe('<SideMenu/>', () => {
           ),
         )
         .when.created();
-        driver.when.clickFaculty(1);
-        expect(driver.get.schools.count()).to.equal(2);
-        expect(driver.get.schools.school(0).text()).to.equal('הכל');
-        expect(driver.get.schools.school(1).text()).to.equal('מדעי המחשב');
+      driver.when.clickFaculty(1);
+      expect(driver.get.schools.count()).to.equal(2);
+      expect(driver.get.schools.school(0).text()).to.equal('הכל');
+      expect(driver.get.schools.school(1).text()).to.equal('מדעי המחשב');
     });
   });
 

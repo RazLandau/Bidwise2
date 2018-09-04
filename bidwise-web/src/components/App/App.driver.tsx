@@ -7,5 +7,6 @@ export class AppDriver extends BaseDriver<AppProps> {
   };
   get = {
     sideMenu: () => this.getByDataHook('side-menu'),
+    content: () => this.getByDataHook('content'),
   };
 }

@@ -75,12 +75,35 @@ class sideMenu extends React.Component {
   renderHeader() {
     return (
       <SideMenu.Header>
-        <div style={{justifyContent: 'center', textAlign: 'center', marginRight: '20px', padding: '26px 30px', color: 'white', fontFamily: 'monospace'}}>
-          <div data-hook="title" style={{direction: 'ltr'}}>
-            <span style={{marginRight: '1.5px', fontSize: '30px', display: 'inline-block', transform: 'scaleX(-1) rotate(0.1turn) translateY(1.5px)'}}>&</span>
-            <span style={{fontSize: '20px', fontWeight: 'bold'}}>idwise</span>
+        <div
+          style={{
+            justifyContent: 'center',
+            textAlign: 'center',
+            marginRight: '20px',
+            padding: '26px 30px',
+            color: 'white',
+            fontFamily: 'monospace',
+          }}
+        >
+          <div data-hook="title" style={{ direction: 'ltr' }}>
+            <span
+              style={{
+                marginRight: '1.5px',
+                fontSize: '30px',
+                display: 'inline-block',
+                transform: 'scaleX(-1) rotate(0.1turn) translateY(1.5px)',
+              }}
+            >
+              &
+            </span>
+            <span style={{ fontSize: '20px', fontWeight: 'bold' }}>idwise</span>
           </div>
-          <div data-hook="subtitle" style={{marginTop: '5px', fontSize: '13px'}}>חכמים יותר מהבידינג</div>
+          <div
+            data-hook="subtitle"
+            style={{ marginTop: '5px', fontSize: '13px' }}
+          >
+            חכמים יותר מהבידינג
+          </div>
         </div>
       </SideMenu.Header>
     );
@@ -151,45 +174,45 @@ class sideMenu extends React.Component {
     });
   }
 
-    renderStaticNavigation(): JSX.Element {
-      return (
-        <div>
-          <SideMenu.NavigationLink
-            isDiminishedHover
-            // onClick={(): void => this.setState({ isHelpModalOpen: true })}
-            data-hook="help-link"
-          >
-            עזרה
-          </SideMenu.NavigationLink>
-          <SideMenu.NavigationLink
-            data-hook="about-link"
-            isDiminishedHover
-            // onClick={(): void => this.setState({ isAboutModalOpen: true })}
-          >
-            אודות
-          </SideMenu.NavigationLink>
-          <SideMenu.NavigationLink
-            // onClick={(): void => this.setState({ isContactUsModalOpen: true })}
-            isDiminishedHover
-            data-hook="contact-us-link"
-          >
-            ליצירת קשר
-          </SideMenu.NavigationLink>
-          <SideMenu.NavigationLink data-hook="yedion-link" isDiminishedHover>
-            ידיעון האוניברסיטה
-          </SideMenu.NavigationLink>
-        </div>
-      );
+  renderStaticNavigation(): JSX.Element {
+    return (
+      <div>
+        <SideMenu.NavigationLink
+          isDiminishedHover
+          // onClick={(): void => this.setState({ isHelpModalOpen: true })}
+          data-hook="help-link"
+        >
+          עזרה
+        </SideMenu.NavigationLink>
+        <SideMenu.NavigationLink
+          data-hook="about-link"
+          isDiminishedHover
+          // onClick={(): void => this.setState({ isAboutModalOpen: true })}
+        >
+          אודות
+        </SideMenu.NavigationLink>
+        <SideMenu.NavigationLink
+          // onClick={(): void => this.setState({ isContactUsModalOpen: true })}
+          isDiminishedHover
+          data-hook="contact-us-link"
+        >
+          ליצירת קשר
+        </SideMenu.NavigationLink>
+        <SideMenu.NavigationLink data-hook="yedion-link" isDiminishedHover>
+          ידיעון האוניברסיטה
+        </SideMenu.NavigationLink>
+      </div>
+    );
   }
 
-    renderFooter(): JSX.Element {
-      return (
-        <SideMenu.Footer>
-          <SideMenu.FooterLink data-hook="footer">
-            © כל הזכויות שמורות
-          </SideMenu.FooterLink>
-        </SideMenu.Footer>
-      );
+  renderFooter(): JSX.Element {
+    return (
+      <SideMenu.Footer>
+        <SideMenu.FooterLink data-hook="footer">
+          © כל הזכויות שמורות
+        </SideMenu.FooterLink>
+      </SideMenu.Footer>
+    );
   }
 }
 

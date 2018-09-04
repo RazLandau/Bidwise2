@@ -5,6 +5,10 @@ import {
   aFaculty,
   asFacultiesResponse,
 } from '../../../test/builders/faculties.builder';
+import {
+  aCourse,
+  asCoursesResponse,
+} from '../../../test/builders/courses.builder';
 
 describe('<App/>', () => {
   let driver: AppDriver;
@@ -24,7 +28,24 @@ describe('<App/>', () => {
           asFacultiesResponse([aFaculty()]),
         ),
       )
+      .givenApiMock(
+        ApiInterceptor.getCourses().replyWith(asCoursesResponse([aCourse()])),
+      )
       .when.created();
     expect(driver.get.sideMenu().exists()).to.be.true;
+  });
+
+  it('should have side menu', async () => {
+    await driver
+      .givenApiMock(
+        ApiInterceptor.getFaculties().replyWith(
+          asFacultiesResponse([aFaculty()]),
+        ),
+      )
+      .givenApiMock(
+        ApiInterceptor.getCourses().replyWith(asCoursesResponse([aCourse()])),
+      )
+      .when.created();
+    expect(driver.get.content().exists()).to.be.true;
   });
 });

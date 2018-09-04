@@ -7,6 +7,12 @@ import {
   asFacultiesResponse,
   FacultyBuilder,
 } from '../builders/faculties.builder';
+import {
+  aCourse,
+  asCoursesResponse,
+  CourseBuilder,
+} from '../builders/courses.builder';
+import { COURSES_ENDPOINTS } from '../../src/services/courses-server-api';
 
 export function start() {
   const app = express();
@@ -23,6 +29,12 @@ export function start() {
     const response = asFacultiesResponse([
       new FacultyBuilder(aFaculty()).build(),
     ]);
+    res.send(response);
+  });
+
+  app.get(COURSES_ENDPOINTS.getCourses, (req, res) => {
+    console.log('in');
+    const response = asCoursesResponse([new CourseBuilder(aCourse()).build()]);
     res.send(response);
   });
 

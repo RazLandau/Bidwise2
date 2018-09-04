@@ -6,7 +6,10 @@ export class SideMenuDriver extends BaseDriver {
   when = {
     created: (): Promise<void> => this.render(SideMenu),
     clickFaculty: (index: number): ReactWrapper =>
-      this.get.faculties.faculty(index).component().simulate('click'),
+      this.get.faculties
+        .faculty(index)
+        .component()
+        .simulate('click'),
   };
 
   get = {
@@ -15,19 +18,28 @@ export class SideMenuDriver extends BaseDriver {
     faculties: {
       count: (): number => this.getByDataHook('faculty').length,
       faculty: (index: number) => {
-          return ({
-            component: (): ReactWrapper => this.getByDataHook('faculty').at(index),
-            text: (): string => this.get.faculties.faculty(index).component().text(),
-          });
+        return {
+          component: (): ReactWrapper =>
+            this.getByDataHook('faculty').at(index),
+          text: (): string =>
+            this.get.faculties
+              .faculty(index)
+              .component()
+              .text(),
+        };
       },
     },
     schools: {
       count: (): number => this.getByDataHook('school').length,
       school: (index: number) => {
-          return ({
-            component: (): ReactWrapper => this.getByDataHook('school').at(index),
-            text: (): string => this.get.schools.school(index).component().text(),
-          });
+        return {
+          component: (): ReactWrapper => this.getByDataHook('school').at(index),
+          text: (): string =>
+            this.get.schools
+              .school(index)
+              .component()
+              .text(),
+        };
       },
     },
     yedionLink: {
@@ -49,6 +61,6 @@ export class SideMenuDriver extends BaseDriver {
     footer: {
       component: (): ReactWrapper => this.getByDataHook('footer'),
       text: (): string => this.get.footer.component().text(),
-    }
+    },
   };
 }
