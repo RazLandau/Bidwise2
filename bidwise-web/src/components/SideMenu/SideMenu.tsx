@@ -1,8 +1,14 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import SideMenuDrill from 'wix-style-react/SideMenuDrill';
 import SideMenu from 'wix-style-react/SideMenu';
 import { FacultiesServerApi } from '../../services/faculties-server-api';
 import * as styles from './SideMenu.scss';
+import { updateGetCoursesId } from '../../actions';
+
+export interface sideMenuProps {
+  updateGetCoursesId: Function;
+}
 
 export interface SideMenuState {
   loaded: boolean;
@@ -10,14 +16,14 @@ export interface SideMenuState {
 }
 
 interface Item {
-  dataHook: string;
+  id: string;
   type: string;
   title: string;
   isActive?: boolean;
   items?: Item[];
 }
 
-class sideMenu extends React.Component {
+class sideMenu extends React.Component<sideMenuProps> {
   readonly state: SideMenuState = {
     loaded: false,
     items: [],
@@ -33,7 +39,7 @@ class sideMenu extends React.Component {
     this.setState({
       loaded: true,
       items: [
-        { type: 'link', title: 'הכל', isActive: true, dataHook: 'faculty' },
+        // { type: 'link', title: 'הכל', isActive: true, dataHook: 'faculty' },
         ...items,
       ],
     });
@@ -44,14 +50,16 @@ class sideMenu extends React.Component {
       return {
         type: 'link',
         title: school,
-        dataHook: 'school',
       };
     });
     return {
-      dataHook: 'faculty',
+      id: faculty.id,
       type: 'menu',
       title: faculty.name,
-      items: [{ type: 'link', title: 'הכל', dataHook: 'school' }, ...items],
+      items: [
+        // { type: 'link', title: 'הכל', dataHook: 'school' },
+        ...items,
+      ],
     };
   }
 
@@ -133,9 +141,10 @@ class sideMenu extends React.Component {
         menuKey={menu.title}
         title={menu.title}
         backLabel="חזרה"
-        linkDataHook={menu.dataHook}
+        linkDataHook="faculty"
         badge={<div />}
         showCategory={false}
+        onSelectHandler={() => this.props.updateGetCoursesId(menu.id)}
       >
         <SideMenuDrill.Navigation>
           <SideMenu.NavigationCategory>בחר חוג</SideMenu.NavigationCategory>
@@ -150,7 +159,7 @@ class sideMenu extends React.Component {
       <SideMenuDrill.Link
         key={link.title}
         isActive={link.isActive}
-        data-hook={link.dataHook}
+        data-hook="school"
       >
         <a onClick={e => this.onMenuSelected(e, link)}>{link.title}</a>
       </SideMenuDrill.Link>
@@ -216,7 +225,14 @@ class sideMenu extends React.Component {
   }
 }
 
-export default sideMenu;
+const mapDispatchToProps = dispatch => ({
+  updateGetCoursesId: (id: string): void => dispatch(updateGetCoursesId(id)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(sideMenu);
 
 //   renderModals(): JSX.Element {
 //     return (

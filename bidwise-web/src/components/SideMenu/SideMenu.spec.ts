@@ -50,9 +50,9 @@ describe('<SideMenu/>', () => {
           ),
         )
         .when.created();
-      expect(driver.get.faculties.count()).to.equal(2);
-      expect(driver.get.faculties.faculty(0).text()).to.equal('הכל');
-      expect(driver.get.faculties.faculty(1).text()).to.equal('מדעים מדויקים');
+      expect(driver.get.faculties.count()).to.equal(1);
+      // expect(driver.get.faculties.faculty(0).text()).to.equal('הכל');
+      expect(driver.get.faculties.faculty(0).text()).to.equal('מדעים מדויקים');
     });
 
     it('should load schools on faculty click', async () => {
@@ -63,10 +63,10 @@ describe('<SideMenu/>', () => {
           ),
         )
         .when.created();
-      driver.when.clickFaculty(1);
-      expect(driver.get.schools.count()).to.equal(2);
-      expect(driver.get.schools.school(0).text()).to.equal('הכל');
-      expect(driver.get.schools.school(1).text()).to.equal('מדעי המחשב');
+      driver.when.clickFaculty(0);
+      expect(driver.get.schools.count()).to.equal(1);
+      // expect(driver.get.schools.school(0).text()).to.equal('הכל');
+      expect(driver.get.schools.school(0).text()).to.equal('מדעי המחשב');
     });
   });
 

@@ -3,12 +3,14 @@ import * as session from 'express-session';
 import { renderVM } from './vm';
 import { ENDPOINTS } from '../../src/services/faculties-server-api';
 import {
-  aFaculty,
+  exactSciencesFaculty,
+  socialSciencesFaculty,
   asFacultiesResponse,
   FacultyBuilder,
 } from '../builders/faculties.builder';
 import {
-  aCourse,
+  csCourse,
+  psyCourse,
   asCoursesResponse,
   CourseBuilder,
 } from '../builders/courses.builder';
@@ -27,14 +29,21 @@ export function start() {
 
   app.get(ENDPOINTS.getFaculties, (req, res) => {
     const response = asFacultiesResponse([
-      new FacultyBuilder(aFaculty()).build(),
+      new FacultyBuilder(exactSciencesFaculty()).build(),
+      new FacultyBuilder(socialSciencesFaculty()).build(),
     ]);
     res.send(response);
   });
 
-  app.get(COURSES_ENDPOINTS.getCourses, (req, res) => {
-    console.log('in');
-    const response = asCoursesResponse([new CourseBuilder(aCourse()).build()]);
+  app.get(COURSES_ENDPOINTS.getCourses('exact'), (req, res) => {
+    const response = asCoursesResponse([new CourseBuilder(csCourse()).build()]);
+    res.send(response);
+  });
+
+  app.get(COURSES_ENDPOINTS.getCourses('social'), (req, res) => {
+    const response = asCoursesResponse([
+      new CourseBuilder(psyCourse()).build(),
+    ]);
     res.send(response);
   });
 

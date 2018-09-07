@@ -29,6 +29,7 @@
     "@types/react": "~15.6.0",
     "@types/react-dom": "~15.5.0",
     "@types/react-i18next": "~4.6.0",
+    "@types/react-redux": "^6.0.7",
     "chai": "~4.1.0",
     "enzyme": "~2.9.0",
     "express": "~4.15.0",
@@ -40,6 +41,7 @@
     "nock": "^9.6.1",
     "puppeteer": "^1.1.0",
     "react-test-renderer": "~15.6.0",
+    "redux": "^4.0.0",
     "typescript": "~2.9.0",
     "velocity": "~0.7.0",
     "with-eyes": "^1.1.4",
@@ -52,6 +54,7 @@
     "prop-types": "~15.6.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",
+    "react-redux": "^5.0.7",
     "wix-axios-config": "latest",
     "wix-style-react": "^4.19.0"
   },

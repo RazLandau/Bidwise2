@@ -4,10 +4,13 @@ import { expect } from 'chai';
 import { dataHook, eventually } from '../test-common';
 import { ApiInterceptor, ApiInterceptorResult } from './api-interceptor';
 import { getDefaultApiMocks } from './api-mocks.builder';
+import { Dependencies, withProviders } from '../../src/providers';
+import { getDefaultDependencies } from './dependencies.builder';
 
 export class BaseDriver<Props = {}> {
   protected component: ReactWrapper;
   protected componentData: Props;
+  protected dependencies: Dependencies;
   protected isRendered: boolean;
   protected attachedToDOM: boolean;
   protected apiMocks: ApiInterceptorResult[];
@@ -16,6 +19,7 @@ export class BaseDriver<Props = {}> {
     this.component = component;
 
     this.componentData = {} as Props;
+    this.dependencies = getDefaultDependencies();
     this.isRendered = false;
     this.attachedToDOM = false;
     this.apiMocks = getDefaultApiMocks();
@@ -30,13 +34,20 @@ export class BaseDriver<Props = {}> {
     return this.componentData[key];
   }
 
+  givenDependency<T extends keyof Dependencies>(
+    key: T,
+    value: Dependencies[T],
+  ) {
+    this.dependencies[key] = value;
+    return this;
+  }
+
   givenApiMock(interceptionResult: ApiInterceptorResult) {
     this.apiMocks.push(interceptionResult);
 
     if (this.isRendered) {
       this.mockRequests();
     }
-
     return this;
   }
 
@@ -48,10 +59,11 @@ export class BaseDriver<Props = {}> {
     this.attachedToDOM = options.attachToDOM;
 
     const element = React.createElement(component, this.componentData);
+    const wrappedComponent = withProviders(this.dependencies)(element);
 
     this.mockRequests();
 
-    this.component = mount(element, {
+    this.component = mount(wrappedComponent, {
       attachTo: options.attachToDOM
         ? document.body.appendChild(document.createElement('div'))
         : undefined,

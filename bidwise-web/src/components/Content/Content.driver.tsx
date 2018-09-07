@@ -5,4 +5,10 @@ export class ContentDriver extends BaseDriver {
   when = {
     created: (): Promise<void> => this.render(Content),
   };
+
+  get = {
+    courses: {
+      count: (): number => this.getByDataHook('course').length,
+    },
+  };
 }

@@ -28,22 +28,16 @@ describe('<App/>', () => {
           asFacultiesResponse([aFaculty()]),
         ),
       )
-      .givenApiMock(
-        ApiInterceptor.getCourses().replyWith(asCoursesResponse([aCourse()])),
-      )
       .when.created();
     expect(driver.get.sideMenu().exists()).to.be.true;
   });
 
-  it('should have side menu', async () => {
+  it('should have content', async () => {
     await driver
       .givenApiMock(
         ApiInterceptor.getFaculties().replyWith(
           asFacultiesResponse([aFaculty()]),
         ),
-      )
-      .givenApiMock(
-        ApiInterceptor.getCourses().replyWith(asCoursesResponse([aCourse()])),
       )
       .when.created();
     expect(driver.get.content().exists()).to.be.true;

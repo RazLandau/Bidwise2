@@ -48,10 +48,10 @@ export const ApiInterceptor = {
       endpoint: ENDPOINTS.getFaculties,
     });
   },
-  getCourses() {
+  getCourses(req) {
     return responseBuilderFactory({
       method: Method.GET,
-      endpoint: COURSES_ENDPOINTS.getCourses,
+      endpoint: COURSES_ENDPOINTS.getCourses(req.getCoursesId),
     });
   },
   apply(apiMocks: ApiInterceptorResult[]) {

@@ -47,7 +47,25 @@ export const aCourse = () =>
     .withEasy(1)
     .withInteresting(5)
     .withRecommended(3)
-    .withComments(4)
+    .withComments(1)
+    .build();
+
+export const csCourse = () =>
+  new CourseBuilder()
+    .withName('סיבוכיות')
+    .withEasy(1)
+    .withInteresting(5)
+    .withRecommended(3)
+    .withComments(1)
+    .build();
+
+export const psyCourse = () =>
+  new CourseBuilder()
+    .withName('ניסויית')
+    .withEasy(5)
+    .withInteresting(1)
+    .withRecommended(3)
+    .withComments(1)
     .build();
 
 export const asCoursesResponse = courses => ({ courses });
