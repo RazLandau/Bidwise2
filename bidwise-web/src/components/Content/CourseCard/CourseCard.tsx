@@ -16,10 +16,7 @@ class CourseCard extends React.Component<CourseCardProps> {
     const { title, comments } = this.props;
     return (
       <Card className="rtl" stretchVertically>
-        <Card.Header
-          suffix={<Text data-hook="header-suffix">{comments} תגובות</Text>}
-          title={title}
-        />
+        <Card.Header suffix={<Text>{comments} תגובות</Text>} title={title} />
         <Card.Content>
           <Container fluid>
             {this.renderEasy()}
@@ -36,7 +33,11 @@ class CourseCard extends React.Component<CourseCardProps> {
     const rating = [];
     for (let i = 0; i < easy; i++) {
       rating.push(
-        <span key={i} data-hook="easy-yes" style={{ fontSize: '25px' }}>
+        <span
+          key={i}
+          data-hook="easy-yes"
+          style={{ float: 'left', fontSize: '25px' }}
+        >
           💯
         </span>,
       );
@@ -46,7 +47,7 @@ class CourseCard extends React.Component<CourseCardProps> {
         <span
           key={i}
           data-hook="easy-no"
-          style={{ fontSize: '25px', opacity: 0.1 }}
+          style={{ float: 'left', fontSize: '25px', opacity: 0.1 }}
         >
           💯
         </span>,
@@ -69,7 +70,11 @@ class CourseCard extends React.Component<CourseCardProps> {
     const rating = [];
     for (let i = 0; i < interesting; i++) {
       rating.push(
-        <span key={i} data-hook="interesting-yes" style={{ fontSize: '25px' }}>
+        <span
+          key={i}
+          data-hook="interesting-yes"
+          style={{ float: 'left', fontSize: '25px' }}
+        >
           🧠
         </span>,
       );
@@ -79,7 +84,7 @@ class CourseCard extends React.Component<CourseCardProps> {
         <span
           key={i}
           data-hook="interesting-no"
-          style={{ fontSize: '25px', opacity: 0.1 }}
+          style={{ float: 'left', fontSize: '25px', opacity: 0.1 }}
         >
           🧠
         </span>,
@@ -102,7 +107,11 @@ class CourseCard extends React.Component<CourseCardProps> {
     const rating = [];
     for (let i = 0; i < recommended; i++) {
       rating.push(
-        <span key={i} data-hook="recommended-yes" style={{ fontSize: '25px' }}>
+        <span
+          key={i}
+          data-hook="recommended-yes"
+          style={{ float: 'left', fontSize: '25px' }}
+        >
           👍
         </span>,
       );
@@ -112,7 +121,7 @@ class CourseCard extends React.Component<CourseCardProps> {
         <span
           key={i}
           data-hook="recommended-no"
-          style={{ fontSize: '25px', opacity: 0.1 }}
+          style={{ float: 'left', fontSize: '25px', opacity: 0.1 }}
         >
           👍
         </span>,

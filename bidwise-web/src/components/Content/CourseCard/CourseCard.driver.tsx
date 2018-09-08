@@ -10,7 +10,7 @@ export class CourseCardDriver extends BaseDriver<CourseCardProps> {
   get = {
     header: {
       title: (): string => this.getByDataHook('title').text(),
-      suffix: (): string => this.getByDataHook('header-suffix').text(),
+      suffix: (): string => this.getByDataHook('suffix').text(),
     },
     easy: {
       text: () => this.getByDataHook('easy-text').text(),

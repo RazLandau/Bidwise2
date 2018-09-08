@@ -47,7 +47,7 @@ describe('<CourseCard/>', () => {
     expect(driver.get.interesting.text()).to.equal('מעניין');
   });
 
-  it('should have easy rating', async () => {
+  it('should have interesting rating', async () => {
     const interesting = 1;
     await driver
       .givenProp('title', 'title')

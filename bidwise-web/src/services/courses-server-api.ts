@@ -17,6 +17,6 @@ export class CoursesServerApi {
   getCourses(req) {
     return this.axiosInstance
       .get(COURSES_ENDPOINTS.getCourses(req.getCoursesId))
-      .then(res => res.data as { courses: { name: string }[] });
+      .then(res => res.data as { courses: { name: string; id: string }[] });
   }
 }

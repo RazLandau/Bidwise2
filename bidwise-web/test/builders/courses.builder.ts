@@ -5,6 +5,7 @@ export class CourseBuilder {
     interesting?: number;
     recommended?: number;
     comments?: number;
+    id?: string;
   } = {};
 
   constructor(course?) {
@@ -36,6 +37,11 @@ export class CourseBuilder {
     return this;
   }
 
+  withId(id: string) {
+    this.data.id = id;
+    return this;
+  }
+
   build() {
     return { ...this.data };
   }
@@ -48,6 +54,7 @@ export const aCourse = () =>
     .withInteresting(5)
     .withRecommended(3)
     .withComments(1)
+    .withId('0')
     .build();
 
 export const csCourse = () =>
@@ -57,6 +64,7 @@ export const csCourse = () =>
     .withInteresting(5)
     .withRecommended(3)
     .withComments(1)
+    .withId('1')
     .build();
 
 export const psyCourse = () =>
@@ -66,6 +74,7 @@ export const psyCourse = () =>
     .withInteresting(1)
     .withRecommended(3)
     .withComments(1)
+    .withId('2')
     .build();
 
 export const asCoursesResponse = courses => ({ courses });

@@ -15,6 +15,13 @@ import {
   CourseBuilder,
 } from '../builders/courses.builder';
 import { COURSES_ENDPOINTS } from '../../src/services/courses-server-api';
+import { FEEDBACKS_ENDPOINTS } from '../../src/services/feedbacks-server-api';
+import {
+  asFeedbacksResponse,
+  complexityFeedback,
+  expsyFeedback,
+  FeedbackBuilder,
+} from '../builders/feedbacks.builder';
 
 export function start() {
   const app = express();
@@ -43,6 +50,20 @@ export function start() {
   app.get(COURSES_ENDPOINTS.getCourses('social'), (req, res) => {
     const response = asCoursesResponse([
       new CourseBuilder(psyCourse()).build(),
+    ]);
+    res.send(response);
+  });
+
+  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('1'), (req, res) => {
+    const response = asFeedbacksResponse([
+      new FeedbackBuilder(complexityFeedback()).build(),
+    ]);
+    res.send(response);
+  });
+
+  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('2'), (req, res) => {
+    const response = asFeedbacksResponse([
+      new FeedbackBuilder(expsyFeedback()).build(),
     ]);
     res.send(response);
   });
