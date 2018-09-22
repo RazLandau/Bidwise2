@@ -1,10 +1,10 @@
-import SideMenu from './SideMenu';
+import SideBar from './SideBar';
 import { BaseDriver } from '../../../test/lib/base-driver';
 import { ReactWrapper } from 'enzyme';
 
-export class SideMenuDriver extends BaseDriver {
+export class SideBarDriver extends BaseDriver {
   when = {
-    created: (): Promise<void> => this.render(SideMenu),
+    created: (): Promise<void> => this.render(SideBar),
     clickFaculty: (index: number): ReactWrapper =>
       this.get.faculties
         .faculty(index)

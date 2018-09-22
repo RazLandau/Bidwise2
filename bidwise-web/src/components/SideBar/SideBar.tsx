@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import SideMenuDrill from 'wix-style-react/SideMenuDrill';
 import SideMenu from 'wix-style-react/SideMenu';
 import { FacultiesServerApi } from '../../services/faculties-server-api';
-import * as styles from './SideMenu.scss';
+import * as styles from './SideBar.scss';
 import { updateGetCoursesId } from '../../actions';
 
-export interface sideMenuProps {
+export interface SideBarProps {
   updateGetCoursesId: Function;
 }
 
-export interface SideMenuState {
+export interface SideBarState {
   loaded: boolean;
   items: Item[];
 }
@@ -23,8 +23,8 @@ interface Item {
   items?: Item[];
 }
 
-class sideMenu extends React.Component<sideMenuProps> {
-  readonly state: SideMenuState = {
+class SideBar extends React.Component<SideBarProps> {
+  readonly state: SideBarState = {
     loaded: false,
     items: [],
   };
@@ -232,7 +232,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(sideMenu);
+)(SideBar);
 
 //   renderModals(): JSX.Element {
 //     return (

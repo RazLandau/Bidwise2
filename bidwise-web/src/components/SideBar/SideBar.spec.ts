@@ -1,16 +1,16 @@
 import { expect } from 'chai';
-import { SideMenuDriver } from './SideMenu.driver';
+import { SideBarDriver } from './SideBar.driver';
 import { ApiInterceptor } from '../../../test/lib/api-interceptor';
 import {
   aFaculty,
   asFacultiesResponse,
 } from '../../../test/builders/faculties.builder';
 
-describe('<SideMenu/>', () => {
-  let driver: SideMenuDriver;
+describe('<SideBar/>', () => {
+  let driver: SideBarDriver;
 
   beforeEach(() => {
-    driver = new SideMenuDriver();
+    driver = new SideBarDriver();
   });
 
   afterEach(() => {
