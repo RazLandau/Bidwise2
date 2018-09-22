@@ -1,6 +1,6 @@
+import { textTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
 import CourseCard, { CourseCardProps } from './CourseCard';
 import { BaseDriver } from '../../../../test/lib/base-driver';
-import { ReactWrapper } from 'enzyme';
 
 export class CourseCardDriver extends BaseDriver<CourseCardProps> {
   when = {
@@ -9,7 +9,11 @@ export class CourseCardDriver extends BaseDriver<CourseCardProps> {
 
   get = {
     header: {
-      title: (): string => this.getByDataHook('title').text(),
+      title: (): string =>
+        new textTestkitFactory({
+          wrapper: this.component,
+          dataHook: 'title',
+        }).getText(),
       suffix: (): string => this.getByDataHook('suffix').text(),
     },
     easy: {

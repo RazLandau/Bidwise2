@@ -1,3 +1,4 @@
+import { textTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
 import FeedbackCard, { FeedbackCardProps } from './FeedbackCard';
 import { BaseDriver } from '../../../../test/lib/base-driver';
 import { ReactWrapper } from 'enzyme';
@@ -9,8 +10,16 @@ export class FeedbackCardDriver extends BaseDriver<FeedbackCardProps> {
 
   get = {
     header: {
-      title: (): string => this.getByDataHook('title').text(),
-      subtitle: (): string => this.getByDataHook('subtitle').text(),
+      title: (): string =>
+        new textTestkitFactory({
+          wrapper: this.component,
+          dataHook: 'title',
+        }).getText(),
+      subtitle: (): string =>
+        new textTestkitFactory({
+          wrapper: this.component,
+          dataHook: 'subtitle',
+        }).getText(),
       suffix: {
         component: (): ReactWrapper => this.getByDataHook('suffix'),
         exists: (): boolean => this.get.header.suffix.component().exists(),
