@@ -1,10 +1,10 @@
-import Content from './Content';
+import MainPage from './MainPage';
 import { BaseDriver } from '../../../test/lib/base-driver';
 import { ReactWrapper } from 'enzyme';
 
-export class ContentDriver extends BaseDriver {
+export class MainPageDriver extends BaseDriver {
   when = {
-    created: (): Promise<void> => this.render(Content),
+    created: (): Promise<void> => this.render(MainPage),
     clickCourse: (index: number) =>
       this.get.courses.course(index).simulate('click'),
     clickBack: () => this.get.backButton().simulate('click'),

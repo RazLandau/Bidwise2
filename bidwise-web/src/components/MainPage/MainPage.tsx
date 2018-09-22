@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import Page from 'wix-style-react/Page';
 import Breadcrumbs from 'wix-style-react/Breadcrumbs';
 import { Layout, Cell } from 'wix-style-react/Layout';
-import * as styles from './Content.scss';
+import * as styles from './MainPage.scss';
 import CourseCard from './CourseCard/CourseCard';
 import FeedbackCard from './FeedbackCard/FeedbackCard';
 import { CoursesServerApi } from '../../services/courses-server-api';
 import { FeedbacksServerApi } from '../../services/feedbacks-server-api';
 
-export interface ContentProps {
+export interface MainPageProps {
   getCoursesId: string;
 }
 
-export interface ContentState {
+export interface MainPageState {
   loaded: boolean;
   courseId: string;
   courseName: string;
@@ -35,8 +35,8 @@ export interface ContentState {
   }[];
 }
 
-class Content extends React.Component<ContentProps> {
-  readonly state: ContentState = {
+class MainPage extends React.Component<MainPageProps> {
+  readonly state: MainPageState = {
     loaded: false,
     courseId: undefined,
     courseName: undefined,
@@ -146,4 +146,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(MainPage);

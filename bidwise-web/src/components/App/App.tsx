@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SideBar from '../SideBar/SideBar';
-import Content from '../Content/Content';
+import MainPage from '../MainPage/MainPage';
 
 export interface AppProps {}
 
@@ -9,7 +9,7 @@ class App extends React.Component<AppProps> {
     return (
       <div>
         <SideBar />
-        <Content />
+        <MainPage />
       </div>
     );
   }

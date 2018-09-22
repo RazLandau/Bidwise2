@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { ContentDriver } from './Content.driver';
+import { MainPageDriver } from './MainPage.driver';
 import { ApiInterceptor } from '../../../test/lib/api-interceptor';
 import {
   aCourse,
@@ -14,10 +14,10 @@ import {
 } from '../../../test/builders/feedbacks.builder';
 
 describe('<Content/>', () => {
-  let driver: ContentDriver;
+  let driver: MainPageDriver;
 
   beforeEach(() => {
-    driver = new ContentDriver();
+    driver = new MainPageDriver();
   });
 
   afterEach(() => {
