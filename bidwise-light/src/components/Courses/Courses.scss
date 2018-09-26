@@ -1,0 +1,14 @@
+.row {
+  .arrow {
+    display: none;
+  }
+  &:hover {
+    background-color: #EAF7FF;
+    .arrow {
+      display: inline-block;
+      transform: translate(40px, -15px);
+      color: #3899EC;
+      position: absolute;
+    }
+  }
+}

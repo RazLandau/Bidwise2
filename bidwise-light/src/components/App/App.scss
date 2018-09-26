@@ -1,1 +1,15 @@
+body,html {
+  margin: 0;
+  padding: 0;
+  background: #f9f8f8;
+}
+* {
+  box-sizing: border-box;
+}
 
+.app {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  direction: rtl;
+}

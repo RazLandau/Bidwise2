@@ -1,8 +1,16 @@
-export const UPDATE_GET_COURSES_ID = 'UPDATE_GET_COURSES_ID';
+export const UPDATE_COURSE = 'UPDATE_COURSE';
+export const UPDATE_IS_ADD_MODAL_OPEN = 'UPDATE_IS_ADD_MODAL_OPEN';
 
-export function updateGetCoursesId(getCoursesId: string) {
+export function updateCourse(course: string): object {
   return {
-    type: UPDATE_GET_COURSES_ID,
-    getCoursesId,
+    type: UPDATE_COURSE,
+    course,
+  };
+}
+
+export function updateIsAddModalOpen(isAddModalOpen: boolean): object {
+  return {
+    type: UPDATE_IS_ADD_MODAL_OPEN,
+    isAddModalOpen,
   };
 }
