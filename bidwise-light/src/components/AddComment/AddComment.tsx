@@ -8,7 +8,7 @@ import InputArea from 'wix-style-react/InputArea';
 import Button from 'wix-style-react/Button';
 import Text from 'wix-style-react/Text';
 import Heading from 'wix-style-react/Heading';
-import { Chat } from 'wix-style-react/new-icons';
+import { Chat, StatusAlertFilled } from 'wix-style-react/new-icons';
 import { updateIsAddModalOpen } from '../../actions';
 
 export interface AddCommentProps {
@@ -16,15 +16,35 @@ export interface AddCommentProps {
   closeAddModal: Function;
 }
 
-class AddComment extends React.Component<AddCommentProps> {
+export interface AddCommentState {
+  easy?: number;
+  interesting?: number;
+  recommended?: number;
+  sent?: boolean;
+  faculty?: string;
+  school?: string;
+  course? : string;
+  lecturer?: string;
+  tldr?: string;
+  details? : string;
+  quote?: { quote: string, quotee: string };
+}
+
+class AddComment extends React.Component<AddCommentProps, AddCommentState> {
+  readonly state: AddCommentState = {};
+
+  componentDidMount() {
+    const quote = this.getRandomQuote();
+    this.setState({ quote })
+  }
+
   render() {
-    const { isAddModalOpen, closeAddModal } = this.props;
+    const { closeAddModal } = this.props;
     return (
       <Modal
         contentLabel="info-modal"
-        isOpen={isAddModalOpen}
+        isOpen
         scrollableContent={false}
-        onRequestClose={closeAddModal}
       >
         <div dir="rtl" className="rtl">
           <MessageBoxFunctionalLayout
@@ -36,7 +56,7 @@ class AddComment extends React.Component<AddCommentProps> {
               {this.renderMetaData()}
               {this.renderRatings()}
               {this.renderComment()}
-              {this.renderQuote()}
+              {/* {this.renderQuote()} */}
               {this.renderSendButton()}
           </MessageBoxFunctionalLayout>
         </div>
@@ -45,25 +65,42 @@ class AddComment extends React.Component<AddCommentProps> {
   }
 
   renderMetaData() {
+    const { sent, faculty, school, course, lecturer } = this.state;
     return (
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: '265px' }}>
-            <Input placeholder="שם הפקולטה" />
+            <Input
+              placeholder="שם הפקולטה"
+              onChange={event => this.setState({ faculty: event.target.value })}
+              status={sent && !faculty ? 'error' : undefined}
+            />
           </div>
           <div style={{ width: '265px' }}>
-          <Input placeholder="שם החוג" />
+          <Input
+            placeholder="שם החוג"
+            onChange={event => this.setState({ school: event.target.value })}
+            status={sent && !school ? 'error' : undefined}
+          />
           </div>
         </div>
         <div style={{ margin: '5px 0' }}>
-          <Input placeholder="שם הקורס" />
+          <Input
+            placeholder="שם הקורס"
+            onChange={event => this.setState({ course: event.target.value })}
+            status={sent && !course ? 'error' : undefined}
+          />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: '430px' }}>
-            <Input placeholder="שם המרצה" />
+            <Input
+              placeholder="שם המרצה"
+              onChange={event => this.setState({ lecturer: event.target.value })}
+              status={sent && !lecturer ? 'error' : undefined}
+            />
           </div>
           <div style={{ width: '100px' }}>
-            <Dropdown placeholder="סמסטר" />
+            <Dropdown placeholder="סמסטר" options={[{id: 0, value: "2019א"}]} selectedId={0} />
           </div>
         </div>
       </div>
@@ -71,72 +108,119 @@ class AddComment extends React.Component<AddCommentProps> {
   }
 
   renderRatings() {
+    const { sent, easy, interesting, recommended } = this.state;
     return (
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '10px 0 5px 0' }}>
         {this.renderEasy()}
+        <StatusAlertFilled size="28px" style={{ color: '#EE5951', opacity: sent && (!easy || !interesting) ? '1' : 0 }} />
         {this.renderInteresting()}
+        <StatusAlertFilled size="28px" style={{ color: '#EE5951', opacity: sent && (!interesting || !recommended) ? '1' : 0 }} />
         {this.renderRecommended()}
       </div>
     );
   }
 
   renderEasy() {
+    const { easy = 0 } = this.state;
     const rating = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < easy; i++) {
       rating.push(
         <Heading
           key={i}
-          style={{ opacity: 0.1 }}
           appearance="H2"
+          onClick={() => this.setState({ easy: i + 1 })}
         >
           💯
         </Heading>,
       );
     }
-    return <div style={{ display: 'flex' }}>{rating}</div>;
-  }
-
-  renderInteresting() {
-    const rating = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = easy; i < 5; i++) {
       rating.push(
         <Heading
           key={i}
           style={{ opacity: 0.1 }}
           appearance="H2"
+          onClick={() => this.setState({ easy: i + 1 })}
+        >
+          💯
+        </Heading>,
+      );
+    }
+    return <div style={{ display: 'flex', cursor: 'pointer' }}>{rating}</div>;
+  }
+
+  renderInteresting() {
+    const { interesting = 0 } = this.state;
+    const rating = [];
+    for (let i = 0; i < interesting; i++) {
+      rating.push(
+        <Heading
+          key={i}
+          appearance="H2"
+          onClick={() => this.setState({ interesting: i + 1 })}
         >
           🧠
         </Heading>,
       );
     }
-    return <div style={{ display: 'flex' }}>{rating}</div>;
-  }
-
-  renderRecommended() {
-    const rating = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = interesting; i < 5; i++) {
       rating.push(
         <Heading
           key={i}
           style={{ opacity: 0.1 }}
           appearance="H2"
+          onClick={() => this.setState({ interesting: i + 1 })}
+        >
+          🧠
+        </Heading>,
+      );
+    }
+    return <div style={{ display: 'flex', cursor: 'pointer' }}>{rating}</div>;
+  }
+
+  renderRecommended() {
+    const { recommended = 0 } = this.state;
+    const rating = [];
+    for (let i = 0; i < recommended; i++) {
+      rating.push(
+        <Heading
+          key={i}
+          appearance="H2"
+          onClick={() => this.setState({ recommended: i + 1 })}
         >
           👍
         </Heading>,
       );
     }
-    return <div style={{ display: 'flex' }}>{rating}</div>;
+    for (let i = recommended; i < 5; i++) {
+      rating.push(
+        <Heading
+          key={i}
+          style={{ opacity: 0.1 }}
+          appearance="H2"
+          onClick={() => this.setState({ recommended: i + 1 })}
+        >
+          👍
+        </Heading>,
+      );
+    }
+    return <div style={{ display: 'flex', cursor: 'pointer' }}>{rating}</div>;
   }
 
   renderComment() {
+    const { sent , tldr, details } = this.state;
     return (
       <div>
         <Input
           placeholder="אמ;לק"
+          onChange={event => this.setState({ tldr: event.target.value })}
+          status={sent && !tldr ? 'error' : undefined}
         />
         <div style={{ margin: '5px 0' }}>
           <InputArea
             placeholder="פירוט"
+            onChange={event => this.setState({ details: event.target.value })}
+            error={sent && !details}
           />
         </div>
       </div>
@@ -145,15 +229,15 @@ class AddComment extends React.Component<AddCommentProps> {
   }
 
   renderQuote() {
-    const quote = this.getRandomQuote();
+    const { quote } = this.state;
     return (
-      <div style={{ padding: '0 70px', textAlign: 'center' }}>
+      quote ? <div style={{ padding: '0 70px', textAlign: 'center' }}>
         <Text>
           {quote.quote}
           <br />
           {quote.quotee}
         </Text>
-      </div>
+      </div> : undefined
     );
   }
 
@@ -164,21 +248,17 @@ class AddComment extends React.Component<AddCommentProps> {
   renderSendButton() {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <Button>שליחה</Button>
+        <Button onClick={() => this.setState({ sent: true })}>שליחה</Button>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  isAddModalOpen: state.isAddModalOpen,
-})
-
 const mapDispatchToProps = dispatch => ({
   closeAddModal: () => dispatch(updateIsAddModalOpen(false)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddComment);
+export default connect(null, mapDispatchToProps)(AddComment);
 
 const quotes = [
   {

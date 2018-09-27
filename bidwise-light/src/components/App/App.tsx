@@ -8,15 +8,17 @@ import * as styles from './App.scss';
 
 export interface AppProps {
   course: string;
+  isAddModalOpen: boolean
 }
 
 class App extends React.Component<AppProps> {
   render() {
+    const { isAddModalOpen, course } = this.props;
     return (
       <div className={styles.app}>
-        <AddComment />
+        {isAddModalOpen ?  <AddComment /> : undefined}
         <Header />
-        {this.props.course ?
+        {course ?
           <Course /> : <Courses />
         }
       </div>
@@ -25,6 +27,7 @@ class App extends React.Component<AppProps> {
 }
 
 const mapStateToProps = state => ({
+  isAddModalOpen: state.isAddModalOpen,
   course: state.course,
 })
 

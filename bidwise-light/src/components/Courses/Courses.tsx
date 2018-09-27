@@ -105,19 +105,22 @@ class Courses extends React.Component<CoursesProps> {
                 {tableData.length ? (
                   <Table.Titlebar/>
                 ) : (
-                  <Table.EmptyState
-                    image={<FoodOutOfStock size="200px" />}
-                    title={
-                      <Text>
-                        לצערנו, אין עדיין תגובות עבור
-                        <Text style={{ margin: '0 4px' }}>{this.searchCategoryText()}</Text>
-                        <Text weight="normal">{`"${this.state.searchTerm}"`}</Text>
-                      </Text>
-                    }
-                    subtitle={
-                      <TextLink onClick={this.props.openAddModal} underlineStyle="never">מה דעתך?</TextLink>
-                    }
-                  />
+                  <div style={{ paddingBottom: '30px' }}>
+                    <Table.EmptyState
+                      image={<FoodOutOfStock size="200px" />}
+                      title={
+                        <Text>
+                          לצערנו, אין עדיין תגובות עבור
+                          <Text style={{ margin: '0 4px' }}>{this.searchCategoryText()}</Text>
+                          <Text weight="normal">{`"${this.state.searchTerm}"`}</Text>
+                        </Text>
+                      }
+                      subtitle={
+                        <TextLink onClick={this.props.openAddModal} underlineStyle="never">מה דעתך?</TextLink>
+                      }
+                    >
+                    </Table.EmptyState>
+                    </div>
                 )}
               </Card>
             </Page.FixedContent>
@@ -222,7 +225,7 @@ class Courses extends React.Component<CoursesProps> {
 
   renderDropdown() {
     return (
-      <div className="rtl" style={{ width: '125px', marginLeft: '5px' }}>
+      <div className="rtl" style={{ width: '120px', marginLeft: '5px' }}>
         <Dropdown
           roundInput
           selectedId={this.state.searchCategory}
