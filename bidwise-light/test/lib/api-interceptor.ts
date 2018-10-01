@@ -52,7 +52,7 @@ export const ApiInterceptor = {
   getCourses(req) {
     return responseBuilderFactory({
       method: Method.GET,
-      endpoint: COURSES_ENDPOINTS.getCourses(req.getCoursesId),
+      endpoint: COURSES_ENDPOINTS.COURSES,
     });
   },
   getFeedbacks(req) {

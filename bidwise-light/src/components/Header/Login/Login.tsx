@@ -15,6 +15,8 @@ class Login extends React.Component<LoginProps> {
       <Modal
         contentLabel="login-modal"
         isOpen
+        shouldCloseOnOverlayClick
+        onRequestClose={onCancel}
       >
         <div dir="rtl">
           <MessageBoxFunctionalLayout

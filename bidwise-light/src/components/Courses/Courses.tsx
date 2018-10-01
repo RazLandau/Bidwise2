@@ -44,6 +44,7 @@ export enum SORT_CATEGORY {
 export interface CoursesProps {
   updateCourse: Function;
   openAddModal: Function;
+  courses: {}[];
 }
 
 class Courses extends React.Component<CoursesProps> {
@@ -61,6 +62,7 @@ class Courses extends React.Component<CoursesProps> {
 
     return (
       <div
+        className="rtl"
         dir="rtl"
         style={{
           boxShadow: '0 -1px 0 0px rgba(41,85,115,.21)',
@@ -86,7 +88,7 @@ class Courses extends React.Component<CoursesProps> {
               {title: '', width: '0%', render: row => <span className={styles.arrow}><ChevronLeft size="32px" /></span>}
           ]}
           showLastRowDivider
-          onRowClick={(rowData, rowNum) => this.props.updateCourse(rowData.course)}
+          onRowClick={(rowData, rowNum) => this.props.updateCourse({ name: rowData.course, id: rowData.id })}
           rowClass={styles.row}
           >
           <Page>
@@ -95,7 +97,6 @@ class Courses extends React.Component<CoursesProps> {
               actionsBar={
                 <Button onClick={this.props.openAddModal} theme="icon-standard" height="large">
                   <Add />
-                  {/* הוספת תגובה */}
                 </Button>
               }
             />
@@ -138,7 +139,7 @@ class Courses extends React.Component<CoursesProps> {
   getProcessedData() {
     return this.sortData(
       this.filterData(
-        allData
+        this.props.courses
       )
     );
   }
@@ -273,6 +274,7 @@ class Courses extends React.Component<CoursesProps> {
           dataHook="story-iconWithOptions"
           selectedId={this.state.sortCategory}
           onSelect={option => this.setState({ sortCategory: option.id })}
+          dropdownWidth="135px"
         >
           <IconWithOptions.Icon>
             <SortDescending style={{ cursor: 'pointer', color: '#3899EC'}} />
@@ -323,7 +325,7 @@ class Courses extends React.Component<CoursesProps> {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateCourse: (course: string): void => dispatch(updateCourse(course)),
+  updateCourse: (course: object): void => dispatch(updateCourse(course)),
   openAddModal: () => dispatch(updateIsAddModalOpen(true)),
 });
 

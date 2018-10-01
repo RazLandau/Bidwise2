@@ -1,6 +1,9 @@
 export class CourseBuilder {
   private readonly data: {
     name?: string;
+    course?: string;
+    school?: string;
+    faculty?: string;
     easy?: number;
     interesting?: number;
     recommended?: number;
@@ -12,8 +15,18 @@ export class CourseBuilder {
     Object.assign(this.data, course);
   }
 
-  withName(name: string) {
-    this.data.name = name;
+  withCourse(course: string) {
+    this.data.course = course;
+    return this;
+  }
+
+  withSchool(school: string) {
+    this.data.school = school;
+    return this;
+  }
+
+  withFaculty(faculty: string) {
+    this.data.faculty = faculty;
     return this;
   }
 
@@ -49,7 +62,9 @@ export class CourseBuilder {
 
 export const aCourse = () =>
   new CourseBuilder()
-    .withName('סיבוכיות')
+    .withCourse('קורס')
+    .withSchool('חוג')
+    .withFaculty('פקולטה')
     .withEasy(1)
     .withInteresting(5)
     .withRecommended(3)
@@ -57,24 +72,35 @@ export const aCourse = () =>
     .withId('0')
     .build();
 
-export const csCourse = () =>
+export const complexityCourse = () =>
   new CourseBuilder()
-    .withName('סיבוכיות')
+    .withCourse('סיבוכיות')
+    .withSchool('מדעי המחשב')
+    .withFaculty('מדעים מדויקים')
     .withEasy(1)
     .withInteresting(5)
     .withRecommended(3)
-    .withComments(1)
-    .withId('1')
+    .withComments(3)
+    .withId('complexity')
     .build();
 
-export const psyCourse = () =>
+export const expsyCourse = () =>
   new CourseBuilder()
-    .withName('ניסויית')
+    .withCourse('פסיכולוגיה ניסויית')
+    .withSchool('פסיכולוגיה')
+    .withFaculty('מדעי החברה')
     .withEasy(5)
     .withInteresting(1)
     .withRecommended(3)
-    .withComments(1)
-    .withId('2')
+    .withComments(3)
+    .withId('expsy')
     .build();
+
+export const eastereggCourse = () =>
+  new CourseBuilder()
+  .withSchool('קורסים שחבל שלא לקחתי')
+  .withFaculty('מדעי הדשא')
+  .withId('easteregg')
+  .build();
 
 export const asCoursesResponse = courses => ({ courses });

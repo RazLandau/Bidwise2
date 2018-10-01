@@ -80,9 +80,18 @@ class Header extends React.Component {
   }
 
   renderStats() {
+    const { stats } = this.props;
     return (
       <Text>
-        סה״כ באתר: 2 פקולטות, 3 חוגים, 3 קורסים, 3 סמסטרים, 3 מרצים, 6 תגובות
+        {`סה״כ באתר: \
+        ${stats.faculties} \
+        פקולטות, \
+        ${stats.schools} \
+        חוגים, \
+        ${stats.courses} \
+        קורסים, \
+        ${stats.comments} \
+        תגובות`}
       </Text>
     );
   }
@@ -116,7 +125,7 @@ class Header extends React.Component {
             onClick={() => this.setState({ isInfoModalOpen: true })}
           />
         </Tooltip>
-        <Tooltip
+        {/* <Tooltip
           content="יצירת קשר"
           shouldCloseOnClickOutside
           theme="dark"
@@ -128,7 +137,7 @@ class Header extends React.Component {
             prefixIcon={<Email />}
             onClick={() => this.setState({ isContactModalOpen: true })}
           />
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip
           content="!עשו לנו לייק"
           shouldCloseOnClickOutside
@@ -139,7 +148,7 @@ class Header extends React.Component {
             underlineStyle="never"
             theme="greyScale"
             prefixIcon={<Facebook style={{ transform: 'translate(6px, -1px)'}} />}
-            link="https://www.facebook.com/"
+            link="https://www.facebook.com/bidwise-164753391101837/"
           />
         </Tooltip>
       </div>
@@ -149,7 +158,7 @@ class Header extends React.Component {
   renderAgudaLogo() {
     return (
       <a href="http://student.co.il/">
-        <img height="30px" src="http://bid-it.appspot.com/assets/img/aguda-logo-trans-small-4.png" />
+        <img height="40px" src="http://student.co.il/sites/all/themes/tau/logo.png" />
       </a>
     );
   }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { wixAxiosInstanceConfig } from 'wix-axios-config';
 
 export const FEEDBACKS_ENDPOINTS = {
-  getFeedbacks: (courseId: string) => `/feedbacks/${courseId}`,
+  getFeedbacks: (id: string) => `/feedbacks/${id}`,
 };
 
 export class FeedbacksServerApi {
@@ -16,19 +16,7 @@ export class FeedbacksServerApi {
 
   getFeedbacks(req) {
     return this.axiosInstance
-      .get(FEEDBACKS_ENDPOINTS.getFeedbacks(req.courseId))
-      .then(
-        res =>
-          res.data as {
-            feedbacks: {
-              date: string;
-              lecturer: string;
-              easy: number;
-              interesting: number;
-              recommended: number;
-              text: string;
-            }[];
-          },
-      );
+      .get(FEEDBACKS_ENDPOINTS.getFeedbacks(req.id))
+      .then(res => res.data as { feedbacks });
   }
 }

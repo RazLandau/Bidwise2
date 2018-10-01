@@ -44,7 +44,8 @@ class AddComment extends React.Component<AddCommentProps, AddCommentState> {
       <Modal
         contentLabel="info-modal"
         isOpen
-        scrollableContent={false}
+        shouldCloseOnOverlayClick
+        onRequestClose={closeAddModal}
       >
         <div dir="rtl" className="rtl">
           <MessageBoxFunctionalLayout
@@ -246,9 +247,19 @@ class AddComment extends React.Component<AddCommentProps, AddCommentState> {
   }
 
   renderSendButton() {
+    const { closeAddModal } = this.props;
+    const { faculty, school, course, lecturer, easy, interesting, recommended, tldr, details}
+      = this.state;
     return (
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <Button onClick={() => this.setState({ sent: true })}>שליחה</Button>
+        <Button
+          onClick={() => {
+            faculty && school && course && lecturer &&
+              easy && interesting && recommended &&
+              tldr && details ? closeAddModal() : this.setState({ sent: true });
+          }}>
+          שליחה
+        </Button>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { wixAxiosInstanceConfig } from 'wix-axios-config';
 
 export const COURSES_ENDPOINTS = {
-  getCourses: (id: string) => `/courses/${id}`,
+  COURSES: '/courses/',
 };
 
 export class CoursesServerApi {
@@ -14,9 +14,9 @@ export class CoursesServerApi {
     });
   }
 
-  getCourses(req) {
+  getCourses() {
     return this.axiosInstance
-      .get(COURSES_ENDPOINTS.getCourses(req.getCoursesId))
-      .then(res => res.data as { courses: { name: string; id: string }[] });
+      .get(COURSES_ENDPOINTS.COURSES)
+      .then(res => res.data as { courses });
   }
 }

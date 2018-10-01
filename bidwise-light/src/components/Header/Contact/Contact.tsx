@@ -28,6 +28,8 @@ class Contact extends React.Component<ContactProps, ContactState> {
       <Modal
         contentLabel="contact-modal"
         isOpen
+        shouldCloseOnOverlayClick
+        onRequestClose={onCancel}
       >
         <div dir="rtl" className="rtl">
           <MessageBoxFunctionalLayout

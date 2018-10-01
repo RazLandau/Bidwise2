@@ -6,7 +6,7 @@ import {
   ItemGroup,
   Item,
 } from 'wix-style-react/TableToolbar';
-import { SortDescending, Add, FoodOutOfStock, ChevronDown, ChevronUp } from 'wix-style-react/new-icons';
+import { SortDescending, Add, FoodOutOfStock, ChevronDown } from 'wix-style-react/new-icons';
 import IconWithOptions from 'wix-style-react/IconWithOptions';
 import Dropdown from 'wix-style-react/Dropdown';
 import Search from 'wix-style-react/Search';
@@ -17,6 +17,7 @@ import TextLink from 'wix-style-react/TextLink';
 import Text from 'wix-style-react/Text';
 import Highlighter from 'wix-style-react/Highlighter';
 import { updateCourse, updateIsAddModalOpen } from '../../actions';
+import { FeedbacksServerApi } from '../../services/feedbacks-server-api';
 import * as styles from './Course.scss'
 
 const createDataSet = setIndex => [
@@ -42,7 +43,7 @@ export enum SORT_CATEGORY {
 export interface CourseProps {
   onBackClicked: Function;
   openAddModal: Function;
-  course: string;
+  course: { name: string, id: string };
 }
 
 class Course extends React.Component<CourseProps> {
@@ -52,12 +53,27 @@ class Course extends React.Component<CourseProps> {
     searchCategory: SEARCH_CATEGORY.SEMESTER,
     searchTerm: '',
     rowExpanded: undefined,
+    feedbacks: [],
+    loaded: true,
   }
+
+  feedbacksServerApi = new FeedbacksServerApi();
+
+  // async componentDidMount() {
+  //   const { id } = this.props.course;
+  //   const feedbacks = (await this.feedbacksServerApi.getFeedbacks({
+  //     courseId: id,
+  //   })).feedbacks;
+  //   this.setState({
+  //     feedbacks,
+  //     loaded: true,
+  //   });
+  // }
 
   render() {
     const tableData = this.getProcessedData();
 
-    return (
+    return this.state.loaded ? (
       <div
         className="rtl"
         dir="rtl"
@@ -77,7 +93,7 @@ class Course extends React.Component<CourseProps> {
           columns={[
               {title: 'סמסטר', render: row => <Highlighter match={this.state.searchCategory === SEARCH_CATEGORY.SEMESTER ? this.state.searchTerm : undefined}>{row.semester}</Highlighter>, width: '20%', minWidth: '100px'},
               {title: 'מרצה', render: row => <Highlighter match={this.state.searchCategory === SEARCH_CATEGORY.LECTURER ? this.state.searchTerm : undefined}>{row.lecturer}</Highlighter>, width: '20%', minWidth: '100px'},
-              {title: 'אמ;לק', render: row => row.summary, width: '20%', minWidth: '100px'},
+              {title: 'אמ;לק', render: row => row.tldr, width: '20%', minWidth: '100px'},
               {title: 'קל', render: row => this.renderRating('💯', row.easy), width: '20%', minWidth: '100px'},
               {title: 'מעניין', render: row => this.renderRating('🧠', row.interesting), width: '20%', minWidth: '100px'},
               {title: 'מומלץ', render: row => this.renderRating('👍', row.recommended), width: '20%', minWidth: '100px'},
@@ -90,11 +106,10 @@ class Course extends React.Component<CourseProps> {
           >
           <Page>
             <Page.Header
-              title={this.props.course}
+              title={this.props.course.name}
               actionsBar={
-                <Button onClick={this.props.openAddModal}>
+                <Button onClick={this.props.openAddModal} theme="icon-standard" height="large">
                   <Add />
-                  תגובה חדשה
                 </Button>
               }
               showBackButton
@@ -130,13 +145,13 @@ class Course extends React.Component<CourseProps> {
           </Page>
         </Table>
       </div>
-    );
+    ) : <div data-hook="is-loading" />
   }
 
   getProcessedData() {
     return this.sortData(
       this.filterData(
-        allData
+        this.props.feedbacks
       )
     );
   }
@@ -221,12 +236,21 @@ class Course extends React.Component<CourseProps> {
 
   renderDropdown() {
     return (
-      <div className="rtl" style={{ width: '105px' }}>
+      <div className="rtl" style={{ width: '120px', marginLeft: '5px' }}>
         <Dropdown
           roundInput
           selectedId={this.state.searchCategory}
           onSelect={option => this.setState({ searchCategory: option.id, searchTerm: '' })}
           options={[
+            {
+              id: -2,
+              value: 'חיפוש ע״פ:',
+              disabled: true,
+            },
+            {
+              id: -1,
+              value: '-'
+            },
             {
               id: 0,
               value: 'סמסטר'
@@ -242,22 +266,37 @@ class Course extends React.Component<CourseProps> {
   }
 
   renderSort() {
+    const options = [
+      {id: -2, value: 'מיון יורד ע״פ:', disabled: true},
+      {id: -1, value: '-'},
+      {id: 0, value: 'סמסטר'},
+      {id: 1, value: 'קל'},
+      {id: 2, value: 'מעניין'},
+      {id: 3, value: 'מומלץ'}
+    ];
     return (
       <div style={{ display: 'flex', width: '0px', marginLeft: '30px', transform: 'translate(0, 13px)'}}>
         <IconWithOptions
           dataHook="story-iconWithOptions"
           selectedId={this.state.sortCategory}
           onSelect={option => this.setState({ sortCategory: option.id })}
+          dropdownWidth="135px"
         >
           <IconWithOptions.Icon>
             <SortDescending style={{ cursor: 'pointer', color: '#3899EC'}} />
           </IconWithOptions.Icon>
-          <IconWithOptions.Option key="סמסטר" id={0}>סמסטר</IconWithOptions.Option>
-          <IconWithOptions.Option key="קל" id={1}>קל</IconWithOptions.Option>
-          <IconWithOptions.Option key="מעניין" id={2}>מעניין</IconWithOptions.Option>
-          <IconWithOptions.Option key="מומלץ" id={3}>מומלץ</IconWithOptions.Option>
+          {this.optionsToArray(options)}
         </IconWithOptions>
       </div>
+    );
+  }
+
+  optionsToArray(options){
+    return (
+      options.map(option => {
+        const {value, ...props} = option;
+        return <IconWithOptions.Option key={option.id} {...props}>{value}</IconWithOptions.Option>;
+      })
     );
   }
 

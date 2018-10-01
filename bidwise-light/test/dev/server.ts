@@ -1,26 +1,25 @@
 import * as express from 'express';
 import * as session from 'express-session';
 import { renderVM } from './vm';
-import { ENDPOINTS } from '../../src/services/faculties-server-api';
 import {
-  exactSciencesFaculty,
-  socialSciencesFaculty,
-  asFacultiesResponse,
-  FacultyBuilder,
-} from '../builders/faculties.builder';
-import {
-  csCourse,
-  psyCourse,
+  complexityCourse,
+  expsyCourse,
   asCoursesResponse,
   CourseBuilder,
+  // eastereggCourse,
 } from '../builders/courses.builder';
 import { COURSES_ENDPOINTS } from '../../src/services/courses-server-api';
 import { FEEDBACKS_ENDPOINTS } from '../../src/services/feedbacks-server-api';
 import {
   asFeedbacksResponse,
-  complexityFeedback,
-  expsyFeedback,
+  interestingFeedback,
+  easyFeedback,
   FeedbackBuilder,
+  goodFeedback,
+  mediocreFeedback,
+  badFeedback,
+  eastereggFeedback,
+  recommendedFeedback,
 } from '../builders/feedbacks.builder';
 
 export function start() {
@@ -34,36 +33,62 @@ export function start() {
     }),
   );
 
-  app.get(ENDPOINTS.getFaculties, (req, res) => {
-    const response = asFacultiesResponse([
-      new FacultyBuilder(exactSciencesFaculty()).build(),
-      new FacultyBuilder(socialSciencesFaculty()).build(),
-    ]);
-    res.send(response);
-  });
-
-  app.get(COURSES_ENDPOINTS.getCourses('exact'), (req, res) => {
-    const response = asCoursesResponse([new CourseBuilder(csCourse()).build()]);
-    res.send(response);
-  });
-
-  app.get(COURSES_ENDPOINTS.getCourses('social'), (req, res) => {
+  app.get(COURSES_ENDPOINTS.COURSES, (req, res) => {
     const response = asCoursesResponse([
-      new CourseBuilder(psyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      new CourseBuilder(complexityCourse()).build(),
+      new CourseBuilder(expsyCourse()).build(),
+      // new CourseBuilder(eastereggCourse()).build(),
     ]);
     res.send(response);
   });
 
-  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('1'), (req, res) => {
+  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('complexity'), (req, res) => {
     const response = asFeedbacksResponse([
-      new FeedbackBuilder(complexityFeedback()).build(),
+      new FeedbackBuilder(interestingFeedback()).build(),
+      new FeedbackBuilder(easyFeedback()).build(),
+      new FeedbackBuilder(recommendedFeedback()).build(),
     ]);
     res.send(response);
   });
 
-  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('2'), (req, res) => {
+  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('expsy'), (req, res) => {
     const response = asFeedbacksResponse([
-      new FeedbackBuilder(expsyFeedback()).build(),
+      new FeedbackBuilder(goodFeedback()).build(),
+      new FeedbackBuilder(mediocreFeedback()).build(),
+      new FeedbackBuilder(badFeedback()).build(),
+    ]);
+    res.send(response);
+  });
+
+  app.get(FEEDBACKS_ENDPOINTS.getFeedbacks('easteregg'), (req, res) => {
+    const response = asFeedbacksResponse([
+      new FeedbackBuilder(eastereggFeedback()).build(),
     ]);
     res.send(response);
   });
