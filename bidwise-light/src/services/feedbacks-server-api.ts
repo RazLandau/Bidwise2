@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { wixAxiosInstanceConfig } from 'wix-axios-config';
 
 export const FEEDBACKS_ENDPOINTS = {
   getFeedbacks: (id: string) => `/feedbacks/${id}`,
@@ -9,7 +8,7 @@ export class FeedbacksServerApi {
   private readonly axiosInstance;
 
   constructor() {
-    this.axiosInstance = wixAxiosInstanceConfig(axios, {
+    this.axiosInstance = axios.create({
       baseURL: '/',
     });
   }

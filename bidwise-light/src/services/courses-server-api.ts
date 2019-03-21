@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { wixAxiosInstanceConfig } from 'wix-axios-config';
 
 export const COURSES_ENDPOINTS = {
   COURSES: '/courses/',
@@ -9,7 +8,7 @@ export class CoursesServerApi {
   private readonly axiosInstance;
 
   constructor() {
-    this.axiosInstance = wixAxiosInstanceConfig(axios, {
+    this.axiosInstance = axios.create({
       baseURL: '/',
     });
   }
