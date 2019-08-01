@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Courses from '../Courses/Courses';
 import Course from '../Course/Course';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import AddComment from '../AddComment/AddComment';
 import * as styles from './App.scss';
 import { CoursesServerApi } from '../../services/courses-server-api';
@@ -62,10 +63,11 @@ class App extends React.Component<AppProps, AppState> {
     return loaded ? (
       <div className={styles.app}>
         {isAddModalOpen ?  <AddComment /> : undefined}
-        <Header stats={stats} />
+        {/*<Header stats={stats} />*/}
         {course && feedbacks ?
-          <Course feedbacks={feedbacks} /> : <Courses courses={courses} />
+          <Course feedbacks={feedbacks} /> : <Courses courses={courses} stats={stats} />
         }
+        <Footer stats={stats} />
       </div>
     ) : (
       <div data-hook="is-loading" />

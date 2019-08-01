@@ -104,7 +104,7 @@ class Course extends React.Component<CourseProps> {
           dynamicRowClass={(rowData, rowNum) => rowNum === this.state.rowExpanded ? styles.expandedRow : styles.row}
           onRowClick={(rowData, rowNum) => this.state.rowExpanded !== rowNum  && this.setState({ rowExpanded: rowNum })}
           >
-          <Page>
+          <Page upgrade maxWidth='none'>
             <Page.Header
               title={this.props.course.name}
               actionsBar={

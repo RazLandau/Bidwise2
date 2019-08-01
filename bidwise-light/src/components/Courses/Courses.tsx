@@ -19,6 +19,7 @@ import Highlighter from 'wix-style-react/Highlighter';
 import Tooltip from 'wix-style-react/Tooltip';
 import { updateCourse, updateIsAddModalOpen } from '../../actions';
 import * as styles from './Courses.scss'
+import Footer from "../Footer/Footer";
 
 const createDataSet = setIndex => [
   {id: `${setIndex}-1`, course: `סיבוכיות`, school: 'מדעי המחשב', faculty: 'מדעים מדויקים', comments: 3, easy: 1, interesting: 5, recommended: 5},
@@ -55,6 +56,8 @@ class Courses extends React.Component<CoursesProps> {
     sortCategory: SORT_CATEGORY.COMMENTS,
     searchCategory: SEARCH_CATEGORY.COURSE,
     searchTerm: '',
+    count: 1,
+    hasMore: true,
   }
 
   render() {
@@ -69,14 +72,14 @@ class Courses extends React.Component<CoursesProps> {
           display: 'flex',
           flexFlow: 'column',
           minWidth: '966px',
-          height: 'calc(100vh - 50px)',
+          height: 'calc(100vh - 100px)',
+          maxWidth: 'none'
         }}
         >
         <Table
           withWrapper={false}
           dataHook="story-table-example"
           data={tableData}
-          itemsPerPage={20}
           columns={[
               {title: 'קורס', render: row => <Highlighter match={this.state.searchCategory === SEARCH_CATEGORY.COURSE ? this.state.searchTerm : undefined}>{row.course}</Highlighter>, width: '30%', minWidth: '150px'},
               {title: 'חוג', render: row => <Highlighter match={this.state.searchCategory === SEARCH_CATEGORY.SCHOOL ? this.state.searchTerm : undefined}>{row.school}</Highlighter>, width: '20%', minWidth: '100px'},
@@ -91,7 +94,7 @@ class Courses extends React.Component<CoursesProps> {
           onRowClick={(rowData, rowNum) => this.props.updateCourse({ name: rowData.course, id: rowData.id })}
           rowClass={styles.row}
           >
-          <Page>
+          <Page maxWidth='none'>
             <Page.Header
               title="כל הקורסים"
               actionsBar={
@@ -132,6 +135,7 @@ class Courses extends React.Component<CoursesProps> {
             </Page.Content>
           </Page>
         </Table>
+        {/*<Footer stats={this.props.stats}/>*/}
       </div>
     );
   }

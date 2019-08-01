@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { User, InfoCircle, Email, Facebook } from 'wix-style-react/new-icons';
+import { User, HelpCircle, Email, Facebook } from 'wix-style-react/new-icons';
 import TextLink from 'wix-style-react/TextLink';
 import Text from 'wix-style-react/Text';
 import Tooltip from 'wix-style-react/Tooltip';
 import Contact from './Contact/Contact';
 import Info from './Info/Info';
 import Login from './Login/Login';
+import StatsWidget from 'wix-style-react/StatsWidget';
 
 export interface HeaderState {
   isLoginModalOpen: boolean;
@@ -35,15 +36,16 @@ class Header extends React.Component {
             height: '50px',
           }}
         >
-          <div style={{ marginRight: '20px'}}>
+          <div style={{ marginRight: '20px', display: 'flex'}}>
             {this.renderBidwiseLogo()}
+            {this.renderAgudaLogo()}
           </div>
           <div>
-            {this.renderStats()}
-          </div>
+            {/*{this.renderStats()}*/}
+          {/*</div>*/}
           <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
             {this.renderActions()}
-            {this.renderAgudaLogo()}
+            {/*{this.renderAgudaLogo()}*/}
           </div>
         </div>
       </div>
@@ -110,7 +112,9 @@ class Header extends React.Component {
             theme="greyScale"
             prefixIcon={<User />}
             onClick={() => this.setState({ isLoginModalOpen: true })}
-          />
+          >
+              התחברות
+          </TextLink>
         </Tooltip>
         <Tooltip
           content="מידע"
@@ -121,9 +125,11 @@ class Header extends React.Component {
           <TextLink
             underlineStyle="never"
             theme="greyScale"
-            prefixIcon={<InfoCircle style={{ transform: 'translateY(1px)'}}/>}
+            prefixIcon={<HelpCircle/>}
             onClick={() => this.setState({ isInfoModalOpen: true })}
-          />
+          >
+              עזרה
+          </TextLink>
         </Tooltip>
         {/* <Tooltip
           content="יצירת קשר"
@@ -138,19 +144,19 @@ class Header extends React.Component {
             onClick={() => this.setState({ isContactModalOpen: true })}
           />
         </Tooltip> */}
-        <Tooltip
-          content="!עשו לנו לייק"
-          shouldCloseOnClickOutside
-          theme="dark"
-          placement="bottom"
-        >
-          <TextLink
-            underlineStyle="never"
-            theme="greyScale"
-            prefixIcon={<Facebook style={{ transform: 'translate(6px, -1px)'}} />}
-            link="https://www.facebook.com/bidwise-164753391101837/"
-          />
-        </Tooltip>
+        {/*<Tooltip*/}
+          {/*content="!עשו לנו לייק"*/}
+          {/*shouldCloseOnClickOutside*/}
+          {/*theme="dark"*/}
+          {/*placement="bottom"*/}
+        {/*>*/}
+          {/*<TextLink*/}
+            {/*underlineStyle="never"*/}
+            {/*theme="greyScale"*/}
+            {/*prefixIcon={<Facebook style={{ transform: 'translate(6px, -1px)'}} />}*/}
+            {/*link="https://www.facebook.com/bidwise-164753391101837/"*/}
+          {/*/>*/}
+        {/*</Tooltip>*/}
       </div>
     );
   }
@@ -158,7 +164,7 @@ class Header extends React.Component {
   renderAgudaLogo() {
     return (
       <a href="http://student.co.il/">
-        <img height="40px" src="http://student.co.il/sites/all/themes/tau/logo.png" />
+        <img height="40px" src="https://www.student.co.il/uploads/crop/kgHBtqtIeSh0y9d9MG4yoV5zI9vfnxsvIxpmouog_logo_image_desktop_general.png" />
       </a>
     );
   }
